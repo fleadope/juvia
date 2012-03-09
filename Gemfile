@@ -14,6 +14,9 @@ gem 'will_paginate', '~> 3.0.pre4'
 gem 'css3buttons'
 gem 'cancan'
 gem 'inherited_resources'
+gem 'pg'
+gem 'unicorn'
+gem 'omniauth', '~> 1.0'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -49,6 +52,6 @@ group :assets do
 end
 
 group :production do
-  gem 'mysql2'
-  # gem 'pg'
+  # gem 'mysql2'
+  gem 'pg'
 end

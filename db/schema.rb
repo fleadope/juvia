@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -21,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20110804201102) do
     t.boolean  "admin",                                 :default => false, :null => false
     t.datetime "created_at",                                               :null => false
     t.datetime "updated_at",                                               :null => false
-    t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
     t.index ["email"], :name => "index_users_on_email", :unique => true
+    t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   end
 
   create_table "sites", :force => true do |t|
@@ -36,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110804201102) do
     t.string   "akismet_key"
     t.index ["key"], :name => "index_sites_on_key", :unique => true
     t.index ["user_id"], :name => "index_sites_on_user_id"
-    t.foreign_key ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade
+    t.foreign_key ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "sites_user_id_fkey"
   end
 
   create_table "topics", :force => true do |t|
@@ -46,9 +47,9 @@ ActiveRecord::Schema.define(:version => 20110804201102) do
     t.string   "url",            :null => false
     t.datetime "created_at",     :null => false
     t.datetime "last_posted_at"
-    t.index ["site_id", "key"], :name => "index_topics_on_site_id_and_key", :unique => true
     t.index ["site_id"], :name => "index_topics_on_site_id"
-    t.foreign_key ["site_id"], "sites", ["id"], :on_update => :cascade, :on_delete => :cascade
+    t.index ["site_id", "key"], :name => "index_topics_on_site_id_and_key", :unique => true
+    t.foreign_key ["site_id"], "sites", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "topics_site_id_fkey"
   end
 
   create_table "comments", :force => true do |t|
@@ -62,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20110804201102) do
     t.text     "content",                          :null => false
     t.datetime "created_at",                       :null => false
     t.index ["topic_id"], :name => "index_comments_on_topic_id"
-    t.foreign_key ["topic_id"], "topics", ["id"], :on_update => :cascade, :on_delete => :cascade
+    t.foreign_key ["topic_id"], "topics", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "comments_topic_id_fkey"
   end
 
 end
